@@ -1,0 +1,57 @@
+ ffmpeg -ss  00:00:00 -t  00:02:19.8 -i Cehennem.mkv b21.mp4  
+ 
+ 
+ #video resmi çeker
+for i in {1..41}; do ffmpeg -i HYVideo$i.mp4 -r 0.0033 -vf scale=-1:220 -frames:v 1 -vcodec png capture-$i.png; done
+
+#pdf dnüştürücü
+soffice --headless --convert-to epub *.odt
+
+
+#pdf işler
+gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dFastWebView=true -dCompatibilityLevel=1.7 -sOutputFile=HY1.pdf 1.pdf
+
+for i in {1..50}; do gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dFastWebView=true -dCompatibilityLevel=1.7 -sOutputFile=HY$i.pdf $i.pdf; done
+
+
+#günceller
+sudo pacman -Syu
+sudo pacman -Scc
+
+
+#git  gönderisi
+git add -A &&  git commit -m "2091" && git push origin master
+
+#video download
+youtube-dll https://youtu.be/ydPWKB88LYc
+
+
+#html resim
+python3 -m venv /home/zekid/Downloads/YeniDizin/
+source /home/zekid/Downloads/YeniDizin/bin/activate 
+
+pip install pillow
+
+pip install optimize-images
+optimize-images /run/media/zekid/7926f910-2f96-4da1-a743-7b75c9a7e591/hy1-video.github.io/images/
+
+
+#git süre
+git config --global user.name "vdemir"
+git config --global user.email "vsahbaz@gmail.com"
+git config credential.helper 'cache --timeout=29600'
+
+
+#systemd
+sudo systemctl enable systemd-resolved.service
+sudo journalctl -f -u systemd-resolved
+sudo systemctl restart systemd-resolved.service
+systemd-resolve --statistics
+systemd-resolve --status
+
+
+ffmpeg -r:v 1/420 -f image2 -s 1280x720 -i file%1d.jpeg -i input.mp3 -vcodec libx264 -b:v 4M -preset  veryslow -acodec copy OUTPUT.mp4 
+
+
+ 
+
